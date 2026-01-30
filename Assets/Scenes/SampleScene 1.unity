@@ -522,6 +522,7 @@ GameObject:
   - component: {fileID: 804507533}
   - component: {fileID: 804507532}
   - component: {fileID: 804507531}
+  - component: {fileID: 804507536}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -536,7 +537,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804507530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b4256522b09d5141a5139827fdd9b84, type: 3}
   m_Name: 
@@ -635,6 +636,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &804507536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804507530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a154860239efcb4daf33fe6c7f03bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StrafeMovement
+  MovementSpeed: 5
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fc468fcbf6971469aafc76406f304e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  RotateSpeed: 1
+  RotateSpeed: {x: 1, y: 1, z: 1}
 --- !u!65 &1171459600
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -48,7 +48,7 @@ public class RotationBasedMovement : MonoBehaviour
             float dashDuration = Time.time - DashKeyDownTime;
             if (dashDuration > 2f)
             {
-                dashDuration = 2f; // Cap the dash duration
+                dashDuration = 2f; 
             }
             float dashDistance = dashDuration * currentSpeed * 5f; // Dash speed multiplier
             transform.position += transform.forward * dashDistance;
