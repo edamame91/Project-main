@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public GameObject followTransform;
 
 public class FollowRotation : MonoBehaviour
 {
+public GameObject followTransform;
 
     public void Update()
     {
