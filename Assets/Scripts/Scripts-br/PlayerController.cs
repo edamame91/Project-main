@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float RotateSpeed = 10f;
     public float maxHealth = 100f;
 
-    float currentHealth;
+    [SerializeField] float currentHealth;
     public Material normalMaterial;
     public Material damageMaterial;
     Renderer playerRenderer;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         playerRenderer.material = takingDamage ? damageMaterial : normalMaterial;
     }
 
-
+ 
     void Update()
     {
 
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player has died!");
+        Debug.Log("Player has died");
         gameObject.SetActive(false);
     }
 }

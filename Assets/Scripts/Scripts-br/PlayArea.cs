@@ -47,7 +47,7 @@ public class PlayArea : MonoBehaviour
         player.TakeDamage(damagePerSecondOutsidePlayArea * Time.deltaTime);
     }
   }
-
+ 
     void SmoothShrink()
     {
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * shrinkSpeed);
