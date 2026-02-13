@@ -1,44 +1,46 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Follow_Player : MonoBehaviour
 {
     public Transform Player;
-    public Vector3 offset = new Vector3(0f, 2f, -4f);
+    public Vector3 localOffset = new Vector3(0f, 2f, -6f);
+    public bool preferRigidbody = true;
 
-    public float yawSpeed = 120f;
-    public float pitchSpeed = 80f;
-    public float minPitch = -30f;
-    public float maxPitch = 60f;
-
-    public float positionSmooth = 10f;
+    public float positionSmooth = 0.15f;
     public float rotationSmooth = 12f;
 
-    private float yaw;
-    private float pitch;
+    private Vector3 positionVelocity;
+    private Rigidbody playerRigidbody;
 
-    void Start()
+    void Awake()
     {
-        Vector3 angles = transform.eulerAngles;
-        yaw = angles.y;
-        pitch = angles.x;
-        Cursor.lockState = CursorLockMode.Locked;
+        if (Player != null)
+        {
+            playerRigidbody = Player.GetComponent<Rigidbody>();
+        }
     }
 
     void LateUpdate()
     {
         if (!Player) return;
 
-        Vector2 mouseDelta = Mouse.current != null ? Mouse.current.delta.ReadValue() : Vector2.zero;
+        Vector3 targetPos = Player.TransformPoint(localOffset);
+        if (preferRigidbody && playerRigidbody != null)
+        {
+            targetPos = playerRigidbody.transform.TransformPoint(localOffset);
+        }
 
-        yaw += mouseDelta.x * yawSpeed * Time.deltaTime;
-        pitch -= mouseDelta.y * pitchSpeed * Time.deltaTime;
-        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+        Quaternion targetRot = Quaternion.LookRotation(Player.position - targetPos, Vector3.up);
 
-        Quaternion targetRot = Quaternion.Euler(pitch, yaw, 0f);
-        Vector3 targetPos = Player.position + targetRot * offset;
+        if (positionSmooth <= 0f)
+        {
+            transform.position = targetPos;
+        }
+        else
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref positionVelocity, positionSmooth);
+        }
 
-        transform.position = Vector3.Lerp(transform.position, targetPos, positionSmooth * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSmooth * Time.deltaTime);
     }
 }

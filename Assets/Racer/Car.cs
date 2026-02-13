@@ -5,8 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Racer : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float accelerationSpeed;
+    [SerializeField] private float maxSpeed;
     [SerializeField] private float rotateSpeed;
+    [SerializeField] private float maxRotateSpeed;
+
 
         private Rigidbody rb;
 
@@ -16,7 +19,7 @@ void Start()
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         HandleMovement();
 
@@ -25,26 +28,28 @@ void Start()
 
     private void HandleMovement()
     {
-        float currentSpeed = movementSpeed;
+        rb.maxLinearVelocity = maxSpeed;
+        rb.maxAngularVelocity = maxRotateSpeed;
 
         if (Keyboard.current.wKey.isPressed)
         {
-            rb.linearVelocity += transform.forward * Time.deltaTime * currentSpeed;
+            rb.linearVelocity += transform.forward * Time.deltaTime * accelerationSpeed;
         }
 
         if (Keyboard.current.sKey.isPressed)
         {
-            rb.linearVelocity -= transform.forward * Time.deltaTime * currentSpeed;
+            rb.linearVelocity -= transform.forward * Time.deltaTime * accelerationSpeed;
         }
 
         if (Keyboard.current.aKey.isPressed)
         {
-            transform.Rotate(0, -Time.deltaTime * rotateSpeed, 0);
+            rb.angularVelocity += Vector3.up * -Time.deltaTime * rotateSpeed;
         }
+        
 
         if (Keyboard.current.dKey.isPressed)
         {
-            transform.Rotate(0, Time.deltaTime * rotateSpeed, 0);
+            rb.angularVelocity += Vector3.up * Time.deltaTime * rotateSpeed;
         }
     }
 
